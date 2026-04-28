@@ -1,0 +1,172 @@
+.letter-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff5f8 0%, #fee2e2 100%);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.letter-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.letter-header h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #e11d48;
+}
+
+/* Envelope Styling - Responsive */
+.envelope-container {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    height: 250px;
+    margin: 20px auto;
+    perspective: 1000px;
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fca5a5;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 15px 35px rgba(225, 29, 72, 0.2);
+    cursor: pointer;
+    transition: transform 0.5s;
+    z-index: 2;
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f87171;
+    clip-path: polygon(0 0, 50% 60%, 100% 0);
+    border-radius: 10px 10px 0 0;
+    transform-origin: top;
+    transition: transform 0.6s ease;
+    z-index: 3;
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.envelope-body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.letter-label {
+    font-family: 'Dancing Script', cursive;
+    color: white;
+    font-size: 1.5rem;
+}
+
+/* Letter Paper - Fixed Layout */
+.letter-content {
+    width: 100%;
+    max-width: 600px;
+    display: none;
+    margin-top: 20px;
+}
+
+.letter-paper {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    position: relative;
+    border: 1px solid #fee2e2;
+}
+
+.polaroid-attachment {
+    width: 130px;
+    background: white;
+    padding: 8px 8px 20px 8px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+    transform: rotate(5deg);
+    margin: 0 auto 20px;
+}
+
+.polaroid-attachment img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.letter-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: #4c0519;
+    line-height: 1.6;
+}
+
+.greeting {
+    font-size: 1.8rem;
+    color: #be123c;
+    margin-bottom: 20px;
+}
+
+.letter-poem {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 10px;
+    background: #fff1f2;
+    font-style: italic;
+    color: #e11d48;
+    text-align: center;
+}
+
+.signature {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #be123c;
+    display: block;
+    margin-top: 10px;
+}
+
+.letter-date {
+    margin-top: 30px;
+    text-align: right;
+    font-size: 0.9rem;
+    color: #999;
+}
+
+.page-nav {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+/* Decorative Icons */
+.decor-img {
+    position: absolute;
+    width: 50px;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.decor-tl { top: 20px; left: 20px; transform: rotate(-15deg); }
+.decor-tr { top: 20px; right: 20px; transform: rotate(15deg); }
+.decor-bl { bottom: 20px; left: 20px; transform: rotate(10deg); }
+.decor-br { bottom: 20px; right: 20px; transform: rotate(-10deg); }
+
+@media (max-width: 480px) {
+    .letter-paper { padding: 30px 20px; }
+    .letter-text { font-size: 1.1rem; }
+}

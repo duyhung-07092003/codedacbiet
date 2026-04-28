@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chụp Ảnh Kỷ Niệm - Sinh Nhật Bé Yêu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/camera.css">
+</head>
+<body class="light-theme">
+    <div class="page-border"></div>
+    <i class="fas fa-heart decor-img decor-tl" style="color: #fecaca;"></i>
+    <i class="fas fa-magic decor-img decor-tr" style="color: #fef08a;"></i>
+    <i class="fas fa-cloud decor-img decor-bl" style="color: #bae6fd;"></i>
+    <i class="fas fa-camera-retro decor-img decor-br" style="color: #e9d5ff;"></i>
+
+    <!-- Background Decorations -->
+    <div class="bg-decorations">
+        <i class="fas fa-camera-retro decor-1"></i>
+        <i class="fas fa-heart decor-2"></i>
+        <i class="fas fa-sparkles decor-3"></i>
+        <i class="fas fa-images decor-4"></i>
+        <i class="fas fa-smile decor-5"></i>
+    </div>
+
+    <!-- Audio Control -->
+    <div class="audio-control">
+        <button id="audioToggle" title="Bật/tắt nhạc" class="audio-btn">
+            <i class="fas fa-music"></i>
+        </button>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <main class="camera-page">
+        <header class="camera-header">
+            <h1>📸 Chụp Ảnh Cùng Nhau 📸</h1>
+            <p>Lưu giữ khoảnh khắc hạnh phúc này nhé</p>
+        </header>
+
+        <div class="camera-container">
+            <!-- Camera View -->
+            <div class="camera-view" id="cameraView">
+                <video id="cameraFeed" autoplay playsinline></video>
+                <div id="cameraFlash"></div>
+                <div class="camera-overlay"></div>
+            </div>
+
+            <!-- Controls -->
+            <div class="camera-controls">
+                <button id="startCameraBtn" class="btn btn-primary"><i class="fas fa-power-off mr-2"></i> Mở Camera</button>
+                <button id="takeShotBtn" class="btn btn-primary" style="display: none;"><i class="fas fa-camera mr-2"></i> Chụp Khoảnh Khắc</button>
+                <button id="stopCameraBtn" class="btn btn-secondary" style="display: none;">Tắt Camera</button>
+            </div>
+
+            <!-- Polaroid Gallery -->
+            <div class="polaroid-gallery" id="polaroidGallery">
+                <!-- Polaroid photos will be added here -->
+            </div>
+            
+            <canvas id="photoCanvas" style="display: none;"></canvas>
+        </div>
+
+        <!-- Navigation -->
+        <div class="page-nav">
+            <a href="video.html" class="btn btn-secondary btn-small">
+                <i class="fas fa-arrow-left mr-1"></i> Quay Lại
+            </a>
+            <a href="letter.html" class="btn btn-primary btn-small">
+                Viết Thư <i class="fas fa-envelope-open-text ml-1"></i>
+            </a>
+        </div>
+    </main>
+
+    <script src="js/camera.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

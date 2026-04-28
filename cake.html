@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thổi Nến Sinh Nhật</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cake.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+</head>
+<body class="light-theme">
+    <!-- Non-flow Elements -->
+    <div class="page-border"></div>
+    <canvas id="fireworksCanvas"></canvas>
+    
+    <div class="webcam-container">
+        <video id="webcam" autoplay playsinline></video>
+    </div>
+
+    <!-- Decorative Elements -->
+    <i class="fas fa-heart decor-img decor-tl" style="color: #fecaca;"></i>
+    <i class="fas fa-star decor-img decor-tr" style="color: #fef08a;"></i>
+    <i class="fas fa-cloud decor-img decor-bl" style="color: #bae6fd;"></i>
+    <i class="fas fa-cat decor-img decor-br" style="color: #e9d5ff;"></i>
+
+    <div class="decorative-photo" style="top: 100px; left: 20px; transform: rotate(-10deg); width: 100px;">
+        <img src="public/img/IMG20240501205151.jpg" alt="Xinh đẹp">
+    </div>
+    <div class="decorative-photo" style="bottom: 100px; right: 20px; transform: rotate(10deg); width: 100px;">
+        <img src="public/img/received_700097915029208.jpeg" alt="Hạnh phúc">
+    </div>
+
+    <!-- Main Content -->
+    <main class="cake-page">
+        <header class="cake-header">
+            <h1 class="animate-text">Happy Birthday!</h1>
+            <div id="ai-status">Đang tìm mặt bé...</div>
+        </header>
+
+        <div class="cake-main-container">
+            <div class="cake-relative-wrapper">
+                <div class="cake-layers">
+                    <div class="candles-container">
+                        <div class="candle-box">
+                            <div class="flame"></div>
+                            <div class="candle-stick"></div>
+                        </div>
+                        <div class="candle-box">
+                            <div class="flame"></div>
+                            <div class="candle-stick"></div>
+                        </div>
+                        <div class="candle-box">
+                            <div class="flame"></div>
+                            <div class="candle-stick"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="cake-layer layer-top">
+                        <div class="strawberry" style="top: -10px; left: 15px;"></div>
+                        <div class="strawberry" style="top: -10px; left: 65px;"></div>
+                        <div class="strawberry" style="top: -10px; left: 115px;"></div>
+                        <div class="cream-drip" style="top: 10px; left: 20px; height: 30px;"></div>
+                        <div class="cream-drip" style="top: 10px; left: 130px; height: 40px;"></div>
+                    </div>
+                    
+                    <div class="cake-layer layer-middle">
+                        <div class="cream-drip" style="top: 10px; left: 40px; height: 35px;"></div>
+                        <div class="cream-drip" style="top: 10px; left: 170px; height: 45px;"></div>
+                    </div>
+                    
+                    <div class="cake-layer layer-bottom"></div>
+                    <div class="cake-plate"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wish-card" id="wishSection">
+            <h2>✨ Điều Ước Cho Em ✨</h2>
+            <p>Chúc em tuổi mới luôn xinh đẹp, hạnh phúc và cùng anh viết tiếp những hành trình tuyệt vời nhé!</p>
+            <i class="fas fa-heart" style="color: #e11d48; font-size: 2rem; margin-top: 15px;"></i>
+        </div>
+
+        <div class="page-nav" style="margin-top: 40px; z-index: 10;">
+            <a href="letter.html" class="btn btn-secondary btn-small">Quay lại</a>
+            <a href="index.html" class="btn btn-primary btn-small">Bắt đầu lại</a>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/cake.js"></script>
+</body>
+</html>

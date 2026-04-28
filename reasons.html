@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 Lý Do Anh Yêu Em</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/reasons.css">
+</head>
+<body class="light-theme">
+    <div class="page-border"></div>
+    
+    <div class="decorative-photo" style="top: 150px; left: 30px; transform: rotate(-10deg);">
+        <img src="public/img/IMG20230106210811.jpg" alt="Kỷ niệm">
+    </div>
+    <div class="decorative-photo" style="bottom: 100px; right: 30px; transform: rotate(5deg);">
+        <img src="public/img/IMG20230112105121.jpg" alt="Kỷ niệm">
+    </div>
+
+    <i class="fas fa-heart decor-img decor-tl" style="color: #fecaca;"></i>
+    <i class="fas fa-star decor-img decor-tr" style="color: #fef08a;"></i>
+    <i class="fas fa-cloud decor-img decor-bl" style="color: #bae6fd;"></i>
+    <i class="fas fa-paw decor-img decor-br" style="color: #e9d5ff;"></i>
+
+    <div class="bg-decorations">
+        <i class="fas fa-heart decor-1"></i>
+        <i class="fas fa-sparkles decor-2"></i>
+    </div>
+
+    <main class="reasons-page">
+        <header class="reasons-header">
+            <h1>100 Lý Do Anh Yêu Em</h1>
+            <p>Nhấn vào từng trái tim để khám phá nhé!</p>
+        </header>
+
+        <div class="jar-container">
+            <div class="jar" id="loveJar">
+                <div class="jar-lid"></div>
+                <div class="jar-body">
+                    <div class="hearts-inside">
+                        <!-- Sẽ tạo các hình trái tim nhỏ bay bên trong bằng JS -->
+                    </div>
+                </div>
+                <div class="jar-label">100 Reasons Why I Love You</div>
+            </div>
+            
+            <div class="tap-instruction">
+                <p>Chạm vào hũ để nhận một lời yêu thương</p>
+                <div class="click-animation">
+                    <i class="fas fa-hand-pointer"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="reasons-counter">
+            Đã khám phá: <span id="countViewed">0</span>/100
+        </div>
+
+        <!-- Popover for showing the reason -->
+        <div class="reason-modal" id="reasonModal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-card">
+                <button class="modal-close">&times;</button>
+                <div class="modal-body">
+                    <span class="reason-number">#1</span>
+                    <p class="reason-text"></p>
+                    <i class="fas fa-heart-pulse heartbeat"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-nav">
+            <a href="timeline.html" class="btn btn-secondary">Quay lại</a>
+            <a href="video.html" class="btn btn-primary">Tiếp theo</a>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/reasons.js"></script>
+</body>
+</html>

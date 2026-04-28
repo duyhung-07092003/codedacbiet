@@ -1,0 +1,673 @@
+/* ========== SECTION 1: COVER ========== */
+
+.cover {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    position: relative;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.cover-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    animation: slideDown 0.8s ease;
+}
+
+.cover-title {
+    font-size: 4rem;
+    margin-bottom: 30px;
+    animation: float 4s ease-in-out infinite;
+}
+
+.cover-message {
+    font-size: 1.3rem;
+    color: var(--primary-pink);
+    margin-bottom: 40px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-gift {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* ========== SECTION 2: GIFT BOX ========== */
+
+.gift-box-section {
+    flex-direction: column;
+    background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+}
+
+.gift-box-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 10;
+}
+
+.gift-box {
+    width: 150px;
+    height: 150px;
+    background: #D4A5A5;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+}
+
+.gift-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(255, 20, 147, 0.6);
+}
+
+.gift-box-front {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #D4A5A5 0%, #FF69B4 100%);
+}
+
+.ribbon {
+    position: absolute;
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.ribbon-h {
+    width: 100%;
+    height: 15px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.ribbon-v {
+    width: 15px;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+}
+
+.bow {
+    width: 40px;
+    height: 40px;
+    background: #FFD700;
+    border-radius: 50%;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.bow::before,
+.bow::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 30px;
+    background: #FFD700;
+    border-radius: 50% 0;
+    top: -5px;
+}
+
+.bow::before {
+    left: -15px;
+    transform: rotate(-45deg);
+}
+
+.bow::after {
+    right: -15px;
+    transform: rotate(45deg);
+}
+
+.gift-instruction {
+    color: var(--primary-pink);
+    font-size: 1.1rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.gift-reveal {
+    text-align: center;
+    animation: slideUp 0.6s ease;
+}
+
+.gift-text {
+    font-size: 2.5rem;
+    color: var(--bright-pink);
+    margin-bottom: 20px;
+}
+
+.gift-emoji {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.confetti-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ========== SECTION 3: TIMELINE ========== */
+
+.timeline {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+.timeline-container {
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+}
+
+.timeline-item {
+    margin-bottom: 60px;
+    opacity: 0;
+    animation: slideUp 0.6s ease forwards;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.2s; }
+.timeline-item:nth-child(2) { animation-delay: 0.4s; }
+.timeline-item:nth-child(3) { animation-delay: 0.6s; }
+.timeline-item:nth-child(4) { animation-delay: 0.8s; }
+
+.timeline-date {
+    font-size: 1.3rem;
+    font-family: var(--font-heading);
+    color: var(--gold);
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.timeline-content {
+    background: rgba(255, 105, 180, 0.05);
+    border-left: 3px solid var(--primary-pink);
+    padding: 25px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    background: rgba(255, 105, 180, 0.1);
+    border-left-color: var(--bright-pink);
+    transform: translateX(10px);
+}
+
+.timeline-image {
+    margin-bottom: 15px;
+}
+
+.polaroid {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: rotate(-2deg);
+    transition: all 0.3s ease;
+    border: 8px solid var(--cream);
+    background: var(--cream);
+}
+
+.polaroid:hover {
+    transform: rotate(2deg) scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+}
+
+.timeline-description {
+    font-size: 0.95rem;
+    color: var(--light-text);
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.btn-story {
+    padding: 8px 16px;
+    background: rgba(255, 215, 0, 0.7);
+    color: var(--dark-bg);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    font-weight: 600;
+}
+
+.btn-story:hover {
+    background: rgba(255, 215, 0, 1);
+    transform: scale(1.05);
+}
+
+/* ========== SECTION 4: VIDEO MESSAGE ========== */
+
+.video-message {
+    background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+    flex-direction: column;
+    padding: 40px 20px;
+}
+
+.video-container {
+    width: 100%;
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(255, 105, 180, 0.3);
+    border: 2px solid rgba(255, 105, 180, 0.3);
+    animation: slideUp 0.6s ease;
+}
+
+.video-container iframe {
+    border-radius: 15px;
+}
+
+.video-instruction {
+    color: var(--primary-pink);
+    font-size: 0.9rem;
+    margin-top: 20px;
+    font-style: italic;
+    text-align: center;
+}
+
+/* ========== SECTION 5: REASONS CARDS ========== */
+
+.reasons {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    flex-direction: column;
+    padding: 40px 20px;
+}
+
+.reasons-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.reason-card {
+    height: 200px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.reason-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.reason-card.flipped .reason-card-inner {
+    transform: rotateY(180deg);
+}
+
+.reason-card-front,
+.reason-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.reason-card-front {
+    background: linear-gradient(135deg, var(--bright-pink), var(--primary-pink));
+    color: var(--white);
+    font-size: 3rem;
+}
+
+.reason-card-back {
+    background: linear-gradient(135deg, var(--gold), #FFA500);
+    color: var(--dark-bg);
+    font-size: 1.1rem;
+    font-family: var(--font-body);
+    transform: rotateY(180deg);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ========== SECTION 6: CANDLE GAME ========== */
+
+.candle-game {
+    background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+    flex-direction: column;
+    gap: 30px;
+}
+
+.cake-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: 300px;
+    position: relative;
+}
+
+.cake {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cake-layer {
+    border-radius: 10px;
+    margin-bottom: -10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.cake-bottom {
+    width: 200px;
+    height: 50px;
+    background: linear-gradient(135deg, #8B4513, #A0522D);
+}
+
+.cake-middle {
+    width: 160px;
+    height: 50px;
+    background: linear-gradient(135deg, #A0522D, #CD853F);
+}
+
+.cake-top {
+    width: 120px;
+    height: 50px;
+    background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+    margin-bottom: 10px;
+}
+
+.candles {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
+.candle {
+    width: 8px;
+    height: 40px;
+    background: #FFE4B5;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.candle:hover {
+    transform: scale(1.1);
+}
+
+.flame {
+    width: 10px;
+    height: 20px;
+    background: linear-gradient(to top, #FFD700, #FFA500, #FF4500);
+    border-radius: 50% 50% 50% 0;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: flicker 0.5s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.8);
+}
+
+.flame.blown {
+    animation: none;
+    opacity: 0;
+}
+
+.candle-instruction {
+    color: var(--primary-pink);
+    font-size: 1.1rem;
+    margin-top: 30px;
+}
+
+#micBtn {
+    margin-top: 20px;
+}
+
+@keyframes flicker {
+    0%, 100% {
+        height: 20px;
+        opacity: 1;
+    }
+    50% {
+        height: 18px;
+        opacity: 0.8;
+    }
+}
+
+/* ========== SECTION 7: LOVE LETTER ========== */
+
+.love-letter {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    flex-direction: column;
+    gap: 30px;
+}
+
+.letter-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    perspective: 1000px;
+}
+
+.envelope {
+    width: 100%;
+    height: 100%;
+    background: #D2B48C;
+    border: 2px solid #8B7355;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.envelope:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+}
+
+.envelope-flap {
+    width: 100%;
+    height: 50%;
+    background: #CD853F;
+    border: 2px solid #8B7355;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 0 0 50px 50px;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.envelope-text {
+    position: relative;
+    z-index: 10;
+    font-family: var(--font-elegant);
+    font-size: 1.8rem;
+    color: #8B4513;
+    text-align: center;
+}
+
+.letter {
+    width: 100%;
+    height: 100%;
+    background: #FFFACD;
+    border-radius: 5px;
+    padding: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+    animation: slideUp 0.5s ease;
+}
+
+.letter-content {
+    text-align: left;
+}
+
+.letter-date {
+    color: #8B7355;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.letter-greeting {
+    font-family: var(--font-elegant);
+    font-size: 1.8rem;
+    color: #8B4513;
+    margin-bottom: 20px;
+}
+
+.letter-body {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.letter-closing {
+    font-family: var(--font-elegant);
+    font-size: 1.5rem;
+    color: #8B4513;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.letter-signature {
+    font-family: var(--font-elegant);
+    font-size: 1.8rem;
+    color: #8B4513;
+}
+
+/* ========== SECTION 8: FINALE ========== */
+
+.finale {
+    background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%);
+    flex-direction: column;
+    gap: 30px;
+}
+
+.fireworks-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.finale-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    animation: slideUp 0.8s ease;
+}
+
+.finale-title {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: float 4s ease-in-out infinite;
+}
+
+.finale-subtitle {
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 40px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.cake-finale {
+    margin-bottom: 40px;
+}
+
+.wish-instruction {
+    color: var(--primary-pink);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+    .cover-title {
+        font-size: 2.5rem;
+    }
+
+    .gift-box {
+        width: 120px;
+        height: 120px;
+    }
+
+    .reasons-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .letter {
+        padding: 25px;
+        font-size: 0.9rem;
+    }
+
+    .video-container {
+        aspect-ratio: auto;
+        min-height: 300px;
+    }
+
+    .cake-layer {
+        border-radius: 8px;
+    }
+
+    .cake-bottom {
+        width: 150px;
+        height: 40px;
+    }
+
+    .cake-middle {
+        width: 120px;
+        height: 40px;
+    }
+
+    .cake-top {
+        width: 90px;
+        height: 40px;
+    }
+
+    .finale-title {
+        font-size: 2.5rem;
+    }
+}

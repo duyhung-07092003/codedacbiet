@@ -26,9 +26,28 @@
             align-items: center;
         }
         #intro-video {
-            width: 100%;
-            height: 100%;
+            width: 90%;
+            max-width: 320px;
+            height: auto;
+            aspect-ratio: 9/16;
             object-fit: cover;
+            border-radius: 20px;
+            border: 5px solid white;
+            box-shadow: 0 0 50px rgba(255,255,255,0.2);
+        }
+        .play-hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 4rem;
+            opacity: 0.8;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        #intro-container.playing .play-hint {
+            opacity: 0;
         }
         .skip-intro {
             position: absolute;
@@ -58,16 +77,11 @@
         <img src="anh/img/anhdep2.jpeg" alt="Kỷ niệm">
     </div>
 
-    <!-- Decorations
-    <i class="fas fa-heart decor-img decor-tl" style="color: #fecaca;"></i>
-    <i class="fas fa-star decor-img decor-tr" style="color: #fef08a;"></i>
-    <i class="fas fa-cloud decor-img decor-bl" style="color: #bae6fd;"></i>
-    <i class="fas fa-cat decor-img decor-br" style="color: #e9d5ff;"></i> -->
-
     <!-- Intro Video -->
     <div id="intro-container">
+        <div class="play-hint"><i class="fas fa-play"></i></div>
         <video id="intro-video" playsinline>
-            <source src="anh/img/received_568992858137073.mp4" type="video/mp4">
+            <source src="anh/video1.mp4" type="video/mp4">
         </video>
         <div class="skip-intro" onclick="startApp()">Chạm để bắt đầu ➔</div>
     </div>
@@ -76,7 +90,7 @@
     <div class="audio-control">
         <button id="audioToggle" class="audio-btn"><i class="fas fa-music"></i></button>
     </div>
-    <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+    <div id="bgMusicContainer"></div>
 
     <!-- Cover Page -->
     <main class="cover-page">
@@ -117,7 +131,12 @@
         
         // Nhấn vào bất kỳ đâu để start nếu video không tự chạy
         container.onclick = () => {
-            video.play();
+            if (video.paused) {
+                container.classList.add('playing');
+                // Boost volume to 8x for maximum loudness
+                if (typeof boostVolume === 'function') boostVolume(video, 8);
+                video.play();
+            }
             // Ẩn nút skip khi đã bấm
             document.querySelector('.skip-intro').style.display = 'none';
         };

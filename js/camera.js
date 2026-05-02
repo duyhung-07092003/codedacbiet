@@ -222,6 +222,10 @@ function capturePhoto() {
     }
 
     const imageData = canvas.toDataURL('image/png');
+    
+    // SAVE TO LOCALSTORAGE (For Letter page)
+    localStorage.setItem('lastCapturedPhoto', imageData);
+    
     createPolaroid(imageData);
 }
 

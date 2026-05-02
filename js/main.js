@@ -1,59 +1,122 @@
 /* ========== MAIN APP INITIALIZATION ========== */
 
-// Audio Control
-const bgMusic = document.getElementById('bgMusic');
-const audioBtn = document.querySelector('.audio-btn') || document.getElementById('audioToggle');
-let isAudioPlaying = false;
+/* ========== YOUTUBE BACKGROUND MUSIC ========== */
+let ytPlayer;
+const videoId = 'vhVBWw6rId0'; // Beautiful In White
 
-function initializeAudio() {
-    if (!bgMusic || !audioBtn) return;
+// Load YouTube API
+const tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+const firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    // Try to autoplay
-    bgMusic.volume = 0.3;
-    const playPromise = bgMusic.play();
-    if (playPromise !== undefined) {
-        playPromise
-            .then(() => {
-                isAudioPlaying = true;
-                audioBtn.classList.remove('muted');
-            })
-            .catch(() => {
-                // Autoplay failed - user needs to interact first
-                isAudioPlaying = false;
-                audioBtn.classList.add('muted');
-            });
+function onYouTubeIframeAPIReady() {
+    // Check if container exists, if not create it hidden
+    let container = document.getElementById('bgMusicContainer');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'bgMusicContainer';
+        container.style.position = 'fixed';
+        container.style.top = '-100px';
+        container.style.left = '-100px';
+        container.style.width = '1px';
+        container.style.height = '1px';
+        container.style.opacity = '0';
+        container.style.pointerEvents = 'none';
+        document.body.appendChild(container);
     }
 
-    // Audio toggle button
-    audioBtn.addEventListener('click', () => {
-        const icon = audioBtn.querySelector('i');
-        if (isAudioPlaying) {
-            bgMusic.pause();
-            audioBtn.classList.add('muted');
-            if (icon) {
-                icon.classList.remove('fa-music');
-                icon.classList.add('fa-volume-mute');
-            }
-            isAudioPlaying = false;
-        } else {
-            bgMusic.play().catch(() => {});
-            audioBtn.classList.remove('muted');
-            if (icon) {
-                icon.classList.remove('fa-volume-mute');
-                icon.classList.add('fa-music');
-            }
-            isAudioPlaying = true;
+    ytPlayer = new YT.Player('bgMusicContainer', {
+        height: '1',
+        width: '1',
+        videoId: videoId,
+        playerVars: {
+            'autoplay': 1,
+            'controls': 0,
+            'disablekb': 1,
+            'fs': 0,
+            'iv_load_policy': 3,
+            'modestbranding': 1,
+            'rel': 0,
+            'showinfo': 0,
+            'loop': 1,
+            'playlist': videoId
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
         }
     });
+}
 
-    // Resume on visibility change
-    document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && isAudioPlaying) {
-            bgMusic.play().catch(() => {});
-        } else if (document.hidden) {
-            bgMusic.pause();
+function onPlayerReady(event) {
+    // Initial volume
+    event.target.setVolume(40);
+    // Check if we should play immediately (only if user interacted)
+    if (localStorage.getItem('musicPlaying') === 'true') {
+        event.target.playVideo();
+    }
+}
+
+function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.ENDED) {
+        ytPlayer.playVideo();
+    }
+    if (event.data === YT.PlayerState.PLAYING) {
+        localStorage.setItem('musicPlaying', 'true');
+    } else {
+        localStorage.setItem('musicPlaying', 'false');
+    }
+}
+
+function toggleMusic() {
+    const audioBtn = document.querySelector('.audio-btn') || document.getElementById('audioToggle');
+    const icon = audioBtn ? audioBtn.querySelector('i') : null;
+
+    if (ytPlayer && ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
+        ytPlayer.pauseVideo();
+        if (audioBtn) audioBtn.classList.add('muted');
+        if (icon) {
+            icon.classList.remove('fa-music');
+            icon.classList.add('fa-volume-mute');
         }
-    });
+    } else if (ytPlayer) {
+        ytPlayer.playVideo();
+        if (audioBtn) audioBtn.classList.remove('muted');
+        if (icon) {
+            icon.classList.remove('fa-volume-mute');
+            icon.classList.add('fa-music');
+        }
+    }
+}
+
+// Function to boost video volume
+function boostVolume(videoElement, multiplier = 4) {
+    if (videoElement.dataset.boosted === 'true') return; // Prevent double boosting
+    
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+        const source = audioCtx.createMediaElementSource(videoElement);
+        const gainNode = audioCtx.createGain();
+
+        gainNode.gain.value = multiplier; 
+
+        source.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        videoElement.dataset.boosted = 'true';
+        console.log(`🔊 Audio boosted by ${multiplier}x for:`, videoElement.id || "video");
+    } catch (e) {
+        console.warn("Audio boost not supported or blocked by browser:", e);
+    }
+}
+
+function initializeAudio() {
+    const audioBtn = document.querySelector('.audio-btn') || document.getElementById('audioToggle');
+    if (!audioBtn) return;
+
+    audioBtn.addEventListener('click', toggleMusic);
 }
 
 // Check viewport
@@ -67,7 +130,6 @@ function checkViewport() {
 function checkBrowserSupport() {
     const required = {
         'Canvas API': !!document.createElement('canvas').getContext('2d'),
-        'Web Audio API': !!(window.AudioContext || window.webkitAudioContext),
         'Fetch API': !!window.fetch,
         'Intersection Observer': !!window.IntersectionObserver
     };
@@ -79,26 +141,6 @@ function checkBrowserSupport() {
 
     return Object.values(required).every(v => v === true);
 }
-
-// Keyboard navigation accessibility
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab') {
-        document.body.classList.add('keyboard-navigation');
-    }
-});
-
-document.addEventListener('mousedown', () => {
-    document.body.classList.remove('keyboard-navigation');
-});
-
-// Error handling
-window.addEventListener('error', (event) => {
-    console.error('❌ Lỗi:', event.message);
-});
-
-window.addEventListener('unhandledrejection', (event) => {
-    console.error('❌ Promise Rejection:', event.reason);
-});
 
 // Initialize on DOM loaded
 document.addEventListener('DOMContentLoaded', () => {

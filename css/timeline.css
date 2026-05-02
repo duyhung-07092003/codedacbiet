@@ -150,38 +150,50 @@
     z-index: 10;
     text-align: center;
     max-width: 800px;
-    padding: 20px;
-    color: white;
+    width: 90%;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.85); /* Glassmorphism background */
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(233, 30, 99, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .slide-title {
-    font-family: var(--font-heading);
-    font-size: 4rem;
-    margin-bottom: 20px;
+    font-family: var(--font-elegant);
+    font-size: 3.2rem;
+    color: #e91e63; /* Vibrant Rose */
+    margin-bottom: 15px;
     opacity: 0;
     transform: translateY(30px);
     transition: all 1s ease 0.5s;
-    text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
 }
 
 .slide-text {
-    font-size: 1.5rem;
-    line-height: 1.8;
-    font-style: italic;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: #4c0519;
+    line-height: 1.5;
     opacity: 0;
     transform: translateY(30px);
     transition: all 1s ease 0.8s;
+    margin-bottom: 20px;
 }
 
 .slide-date {
     display: block;
-    margin-top: 30px;
+    margin-top: 10px;
     font-weight: bold;
-    color: var(--gold);
-    letter-spacing: 2px;
+    color: #fb7185;
+    padding: 8px 25px;
+    background: white;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     opacity: 0;
     transition: all 1s ease 1.1s;
 }

@@ -12,9 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Kiểm tra ảnh từ localStorage
     const lastPhoto = localStorage.getItem('lastCapturedPhoto');
-    if (lastPhoto) {
+    if (lastPhoto && lastPhoto.startsWith('data:image')) {
         attachedPhoto.src = lastPhoto;
         polaroidInLetter.style.display = 'block';
+    } else {
+        // Nếu không có ảnh chụp, có thể ẩn hoặc hiện ảnh mặc định
+        polaroidInLetter.style.display = 'none';
     }
 
     // Hiệu ứng mở thư

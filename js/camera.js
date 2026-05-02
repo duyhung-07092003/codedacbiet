@@ -15,8 +15,46 @@ const uploadPartnerBtn = document.getElementById('uploadPartnerBtn');
 const partnerImg = document.getElementById('partnerImg');
 const partnerPlaceholder = document.getElementById('partnerPlaceholder');
 
+// Off-screen canvas for partner photo to ensure perfect capture
+const partnerCanvas = document.createElement('canvas');
+const pCtx = partnerCanvas.getContext('2d');
+
 let selectedFrame = 'none';
 let partnerImageLoaded = false;
+
+// Helper to draw image like object-fit: cover
+function drawImageCover(ctx, img, x, y, w, h) {
+    if (!img) return;
+    
+    let imgWidth, imgHeight;
+    if (img instanceof HTMLVideoElement) {
+        if (img.readyState < 2) return;
+        imgWidth = img.videoWidth;
+        imgHeight = img.videoHeight;
+    } else {
+        imgWidth = img.naturalWidth || img.width;
+        imgHeight = img.naturalHeight || img.height;
+    }
+
+    if (!imgWidth || !imgHeight) return;
+    
+    const imgAspect = imgWidth / imgHeight;
+    const canvasAspect = w / h;
+    let sx, sy, sw, sh;
+
+    if (imgAspect > canvasAspect) {
+        sh = imgHeight;
+        sw = imgHeight * canvasAspect;
+        sx = (imgWidth - sw) / 2;
+        sy = 0;
+    } else {
+        sw = imgWidth;
+        sh = imgWidth / canvasAspect;
+        sx = 0;
+        sy = (imgHeight - sh) / 2;
+    }
+    ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+}
 
 // Partner Photo Upload
 uploadPartnerBtn.addEventListener('click', () => partnerPhotoInput.click());
@@ -26,15 +64,23 @@ partnerPhotoInput.addEventListener('change', (e) => {
     if (file) {
         const reader = new FileReader();
         reader.onload = (event) => {
-            const tempImg = new Image();
-            tempImg.onload = () => {
-                partnerImg.src = event.target.result;
+            const img = new Image();
+            img.onload = () => {
+                // Set partner canvas to 3:4 ratio
+                partnerCanvas.width = 450;
+                partnerCanvas.height = 600;
+                
+                // Draw to off-screen canvas using cover logic
+                drawImageCover(pCtx, img, 0, 0, partnerCanvas.width, partnerCanvas.height);
+                
+                // Show in UI
+                partnerImg.src = partnerCanvas.toDataURL('image/png');
                 partnerImg.style.display = 'block';
                 partnerPlaceholder.style.display = 'none';
                 partnerImageLoaded = true;
-                console.log("Partner image loaded successfully.");
+                console.log("Partner image pre-rendered to off-screen canvas.");
             };
-            tempImg.src = event.target.result;
+            img.src = event.target.result;
         };
         reader.readAsDataURL(file);
     }
@@ -106,64 +152,32 @@ takeShotBtn.addEventListener('click', () => {
     }, 1000);
 });
 
-// Helper to draw image like object-fit: cover
-function drawImageCover(ctx, img, x, y, w, h) {
-    if (!img || (img instanceof HTMLVideoElement && img.readyState < 2)) return;
-    
-    const imgWidth = img instanceof HTMLVideoElement ? img.videoWidth : img.width;
-    const imgHeight = img instanceof HTMLVideoElement ? img.videoHeight : img.height;
-    
-    const imgAspect = imgWidth / imgHeight;
-    const canvasAspect = w / h;
-    let sx, sy, sw, sh;
-
-    if (imgAspect > canvasAspect) {
-        sh = imgHeight;
-        sw = imgHeight * canvasAspect;
-        sx = (imgWidth - sw) / 2;
-        sy = 0;
-    } else {
-        sw = imgWidth;
-        sh = imgWidth / canvasAspect;
-        sx = 0;
-        sy = (imgHeight - sh) / 2;
-    }
-    ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
-}
-
 function capturePhoto() {
     if (!video.videoWidth) return;
 
-    // Shutter sound
     shutterSound.play();
 
-    // Flash Effect
     flash.classList.remove('camera-flash-active');
     void flash.offsetWidth; 
     flash.classList.add('camera-flash-active');
 
-    // Canvas size should be consistent
     canvas.width = 600;
     canvas.height = 800;
 
-    // Clear canvas
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 1. Draw Camera Feed (mirrored)
     ctx.save();
     ctx.scale(-1, 1);
     drawImageCover(ctx, video, -canvas.width, 0, canvas.width, canvas.height);
     ctx.restore();
 
-    // 2. Draw Partner Image if loaded
-    if (partnerImageLoaded && partnerImg.src && partnerImg.src !== "") {
+    if (partnerImageLoaded) {
         const pWidth = canvas.width * 0.35; 
         const pHeight = pWidth * 1.33;
         const pX = canvas.width - pWidth - 30;
         const pY = 30;
 
-        // Draw white border for partner photo
         ctx.save();
         ctx.shadowColor = 'rgba(0,0,0,0.5)';
         ctx.shadowBlur = 15;
@@ -171,11 +185,10 @@ function capturePhoto() {
         ctx.fillRect(pX - 5, pY - 5, pWidth + 10, pHeight + 10);
         ctx.restore();
 
-        // Draw image over white background
-        drawImageCover(ctx, partnerImg, pX, pY, pWidth, pHeight);
+        // DRAW FROM OFF-SCREEN CANVAS (Reliable)
+        ctx.drawImage(partnerCanvas, pX, pY, pWidth, pHeight);
     }
 
-    // 3. Draw Beautiful Frame/Border
     const borderSize = 40;
     ctx.lineWidth = borderSize;
 
@@ -186,7 +199,6 @@ function capturePhoto() {
         if (selectedFrame === 'birthday') { color1 = '#fbcfe8'; color2 = '#f472b6'; }
         if (selectedFrame === 'elegant') { color1 = '#db2777'; color2 = '#9d174d'; }
         
-        // Gradient Border
         const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
         gradient.addColorStop(0, color1);
         gradient.addColorStop(1, color2);
@@ -194,7 +206,6 @@ function capturePhoto() {
         ctx.strokeStyle = gradient;
         ctx.strokeRect(borderSize/2, borderSize/2, canvas.width - borderSize, canvas.height - borderSize);
 
-        // Decorative Text
         ctx.fillStyle = "white";
         ctx.font = "italic bold 30px Arial";
         ctx.textAlign = "center";
@@ -217,8 +228,6 @@ function capturePhoto() {
 function createPolaroid(src) {
     const polaroid = document.createElement('div');
     polaroid.className = 'polaroid';
-    
-    // Random rotation for natural look
     const rotation = Math.random() * 10 - 5;
     polaroid.style.setProperty('--rotation', `${rotation}deg`);
 
@@ -231,7 +240,6 @@ function createPolaroid(src) {
         <div class="polaroid-caption">My Love - ${dateString}</div>
     `;
 
-    // Click to download
     polaroid.addEventListener('click', () => {
         const link = document.createElement('a');
         link.href = src;
@@ -239,20 +247,17 @@ function createPolaroid(src) {
         link.click();
     });
 
-    // Add to gallery
     if (gallery.firstChild) {
         gallery.insertBefore(polaroid, gallery.firstChild);
     } else {
         gallery.appendChild(polaroid);
     }
 
-    // Optional: Limit to 6 photos to avoid clutter
     if (gallery.children.length > 6) {
         gallery.removeChild(gallery.lastChild);
     }
 }
 
-// Stop Camera
 stopCameraBtn.addEventListener('click', () => {
     if (stream) {
         stream.getTracks().forEach(track => track.stop());
@@ -263,14 +268,6 @@ stopCameraBtn.addEventListener('click', () => {
     video.srcObject = null;
 });
 
-// Cleanup
-window.addEventListener('beforeunload', () => {
-    if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-    }
-});
-
-// Cleanup
 window.addEventListener('beforeunload', () => {
     if (stream) {
         stream.getTracks().forEach(track => track.stop());

@@ -86,26 +86,41 @@
 
 .letter-paper {
     background: #fff;
-    padding: 40px 30px;
+    padding: 60px 40px; /* Increased padding */
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.1);
     position: relative;
     border: 1px solid #fee2e2;
+    overflow: visible; /* Allow polaroid to hang out */
 }
 
 .polaroid-attachment {
-    width: 130px;
+    width: 140px;
     background: white;
-    padding: 8px 8px 20px 8px;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
-    transform: rotate(5deg);
-    margin: 0 auto 20px;
+    padding: 10px 10px 25px 10px;
+    box-shadow: 5px 10px 25px rgba(0,0,0,0.15);
+    border: 1px solid #eee;
+    z-index: 100;
+    transition: transform 0.3s ease;
+}
+
+.polaroid-attachment:hover {
+    transform: scale(1.1) rotate(0deg) !important;
 }
 
 .polaroid-attachment img {
     width: 100%;
-    aspect-ratio: 1;
+    aspect-ratio: 3/4; /* Match camera output ratio */
     object-fit: cover;
+    border-radius: 2px;
+}
+
+.polaroid-note {
+    font-family: 'Dancing Script', cursive;
+    font-size: 0.9rem;
+    color: #e11d48;
+    margin-top: 8px;
+    text-align: center;
 }
 
 .letter-text {

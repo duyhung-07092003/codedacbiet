@@ -120,15 +120,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const reasonIcon = document.getElementById('reasonIcon');
 
     const images = [
-        "public/img/anhdep.jpeg", "public/img/anhdep2.jpeg", "public/img/banronhoc.jpg",
-        "public/img/c2chupanhvoinhau.JPG", "public/img/chamcacgiacngu.jpg", "public/img/cutethomnhau.jpeg",
-        "public/img/datlenbacthang.jpeg", "public/img/diaovuatretrau.png", "public/img/dichoitoi.jpeg",
-        "public/img/dihotaylandauvoinhau.jpeg", "public/img/dimuacungnhau.jpg", "public/img/dimuaga.jpg",
-        "public/img/doimusinhnhat.JPG", "public/img/dongdokhoacvai.jpg", "public/img/haiphong.jpg",
-        "public/img/hotay2.jpg", "public/img/IMG_1355.jpg", "public/img/khongchohon.jpg",
-        "public/img/ngoiosuoi.jpeg", "public/img/omnhau.jpg", "public/img/sinhnhathun19tuoitim.jpeg",
-        "public/img/sinhnhathung.jpg", "public/img/sinhnhathungtraitim.jpeg", "public/img/tet2023.jpeg",
-        "public/img/thomotro.jpg", "public/img/tinnhanxinnamtay.jpg", "public/img/totnghiephung.png"
+        "anh/img/anhdep.jpeg", "anh/img/anhdep2.jpeg", "anh/img/banronhoc.jpg",
+        "anh/img/c2chupanhvoinhau.JPG", "anh/img/chamcacgiacngu.jpg", "anh/img/cutethomnhau.jpeg",
+        "anh/img/datlenbacthang.jpeg", "anh/img/diaovuatretrau.png", "anh/img/dichoitoi.jpeg",
+        "anh/img/dihotaylandauvoinhau.jpeg", "anh/img/dimuacungnhau.jpg", "anh/img/dimuaga.jpg",
+        "anh/img/doimusinhnhat.JPG", "anh/img/dongdokhoacvai.jpg", "anh/img/haiphong.jpg",
+        "anh/img/hotay2.jpg", "anh/img/IMG_1355.jpg", "anh/img/khongchohon.jpg",
+        "anh/img/ngoiosuoi.jpeg", "anh/img/omnhau.jpg", "anh/img/sinhnhathun19tuoitim.jpeg",
+        "anh/img/sinhnhathung.jpg", "anh/img/sinhnhathungtraitim.jpeg", "anh/img/tet2023.jpeg",
+        "anh/img/thomotro.jpg", "anh/img/tinnhanxinnamtay.jpg", "anh/img/totnghiephung.png"
     ];
 
     const icons = [

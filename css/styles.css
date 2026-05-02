@@ -236,6 +236,56 @@ p {
     100% { transform: translate(0, 0) rotate(0deg); }
 }
 
+/* ========== DECORATIVE PHOTO (POLAROID) ========== */
+
+.decorative-photo {
+    position: fixed;
+    width: 110px;
+    background: white;
+    padding: 8px 8px 24px 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    z-index: 5;
+    pointer-events: auto;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid #eee;
+}
+
+.decorative-photo:hover {
+    transform: scale(1.1) rotate(0deg) !important;
+    z-index: 1001;
+    box-shadow: 0 15px 35px rgba(233, 30, 99, 0.2);
+}
+
+.decorative-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 1px solid #f5f5f5;
+}
+
+/* Tape effect */
+.decorative-photo::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45px;
+    height: 18px;
+    background: rgba(233, 30, 99, 0.3);
+    backdrop-filter: blur(2px);
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .decorative-photo {
+        width: 85px;
+        padding: 6px 6px 18px 6px;
+    }
+}
+
 /* ========== MODAL ========== */
 
 .modal {

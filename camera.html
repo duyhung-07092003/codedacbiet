@@ -45,11 +45,38 @@
         </header>
 
         <div class="camera-container">
+            <!-- Partner Photo Upload (For LDR) -->
+            <div class="partner-upload-section">
+                <p>Yêu xa? Tải ảnh của người ấy lên để chụp cùng nhé! ❤️</p>
+                <input type="file" id="partnerPhotoInput" accept="image/*" style="display: none;">
+                <button id="uploadPartnerBtn" class="btn btn-secondary btn-small">
+                    <i class="fas fa-upload mr-1"></i> Chọn ảnh người ấy
+                </button>
+            </div>
+
+            <!-- Frame Selector -->
+            <div class="frame-selector">
+                <p>Chọn khung hình: </p>
+                <div class="frames-list">
+                    <div class="frame-option active" data-frame="none"><span>None</span></div>
+                    <div class="frame-option" data-frame="hearts"><i class="fas fa-heart"></i></div>
+                    <div class="frame-option" data-frame="flowers"><i class="fas fa-seedling"></i></div>
+                    <div class="frame-option" data-frame="stars"><i class="fas fa-star"></i></div>
+                    <div class="frame-option" data-frame="birthday"><i class="fas fa-birthday-cake"></i></div>
+                    <div class="frame-option" data-frame="elegant"><i class="fas fa-gem"></i></div>
+                </div>
+            </div>
+
             <!-- Camera View -->
             <div class="camera-view" id="cameraView">
                 <video id="cameraFeed" autoplay playsinline></video>
+                <div id="partnerOverlay" class="partner-overlay-img">
+                    <img id="partnerImg" src="" alt="" style="display: none;">
+                    <div id="partnerPlaceholder">Chưa có ảnh</div>
+                </div>
                 <div id="cameraFlash"></div>
-                <div class="camera-overlay"></div>
+                <div class="camera-overlay" id="frameOverlay"></div>
+                <div id="countdown">3</div>
             </div>
 
             <!-- Controls -->

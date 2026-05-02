@@ -48,44 +48,9 @@
     color: #fb7185;
     font-size: 1.2rem;
 }
+/* Cute Page Border */
+.page-border {
 
-/* Khung ảnh Polaroid trang trí có băng keo */
-.decorative-photo {
-    position: fixed;
-    width: 120px;
-    background: white;
-    padding: 8px 8px 25px 8px;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
-    z-index: 5;
-    pointer-events: auto;
-    transition: transform 0.3s;
-}
-
-.decorative-photo:hover {
-    transform: scale(1.1) rotate(0deg) !important;
-    z-index: 1001;
-}
-
-.decorative-photo img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border: 1px solid #eee;
-}
-
-.decorative-photo::before {
-    content: '';
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 20px;
-    background: rgba(251, 113, 133, 0.4); /* Băng keo hồng */
-    backdrop-filter: blur(2px);
-}
-
-:root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

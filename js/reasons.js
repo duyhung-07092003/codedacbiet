@@ -114,6 +114,49 @@ document.addEventListener('DOMContentLoaded', () => {
     let viewedReasons = JSON.parse(localStorage.getItem('viewedReasons')) || [];
     countDisplay.innerText = viewedReasons.length;
 
+    const bgContainer = document.getElementById('bgFloatingElements');
+    const reasonImageContainer = document.getElementById('reasonImageContainer');
+    const reasonImage = document.getElementById('reasonImage');
+    const reasonIcon = document.getElementById('reasonIcon');
+
+    const images = [
+        "public/img/anhdep.jpeg", "public/img/anhdep2.jpeg", "public/img/banronhoc.jpg",
+        "public/img/c2chupanhvoinhau.JPG", "public/img/chamcacgiacngu.jpg", "public/img/cutethomnhau.jpeg",
+        "public/img/datlenbacthang.jpeg", "public/img/diaovuatretrau.png", "public/img/dichoitoi.jpeg",
+        "public/img/dihotaylandauvoinhau.jpeg", "public/img/dimuacungnhau.jpg", "public/img/dimuaga.jpg",
+        "public/img/doimusinhnhat.JPG", "public/img/dongdokhoacvai.jpg", "public/img/haiphong.jpg",
+        "public/img/hotay2.jpg", "public/img/IMG_1355.jpg", "public/img/khongchohon.jpg",
+        "public/img/ngoiosuoi.jpeg", "public/img/omnhau.jpg", "public/img/sinhnhathun19tuoitim.jpeg",
+        "public/img/sinhnhathung.jpg", "public/img/sinhnhathungtraitim.jpeg", "public/img/tet2023.jpeg",
+        "public/img/thomotro.jpg", "public/img/tinnhanxinnamtay.jpg", "public/img/totnghiephung.png"
+    ];
+
+    const icons = [
+        "fa-heart", "fa-star", "fa-cloud", "fa-moon", "fa-sun", 
+        "fa-dove", "fa-gift", "fa-music", "fa-camera", "fa-smile-beam",
+        "fa-grin-hearts", "fa-kiss-wink-heart", "fa-face-smile-wink", "fa-cat", "fa-dog"
+    ];
+
+    // Tạo các phần tử bay lơ lửng ở background
+    function createBackgroundDecor() {
+        const decorIcons = ['fa-heart', 'fa-star', 'fa-sparkles', 'fa-cloud'];
+        for (let i = 0; i < 15; i++) {
+            const el = document.createElement('i');
+            const icon = decorIcons[Math.floor(Math.random() * decorIcons.length)];
+            el.className = `fas ${icon} floating-element`;
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.top = Math.random() * 100 + 'vh';
+            el.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            el.style.color = ['#fecaca', '#fef08a', '#bae6fd', '#e9d5ff'][Math.floor(Math.random() * 4)];
+            el.style.setProperty('--drift-x', (Math.random() * 200 - 100) + 'px');
+            el.style.setProperty('--duration', (Math.random() * 10 + 10) + 's');
+            el.style.animationDelay = (Math.random() * -20) + 's';
+            bgContainer.appendChild(el);
+        }
+    }
+
+    createBackgroundDecor();
+
     // Tạo trái tim bay trong hũ
     function createHearts() {
         for (let i = 0; i < 20; i++) {
@@ -147,6 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return { index: index + 1, text: reasons[index], originalIndex: index };
     }
 
+    let autoCloseTimer;
+
     function showReason() {
         // Hiệu ứng rung hũ
         jar.classList.add('shake');
@@ -163,9 +208,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         modalNumber.innerText = `Lý do #${reason.index}`;
         modalText.innerText = reason.text;
+
+        // Chọn icon ngẫu nhiên
+        const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+        reasonIcon.className = `fas ${randomIcon} reason-icon`;
         
+        // Hiển thị ảnh ngẫu nhiên (hoặc mỗi 2-3 lý do hiển thị 1 ảnh để tạo sự bất ngờ)
+        if (Math.random() > 0.3) { // 70% cơ hội hiển thị ảnh
+            const randomImg = images[Math.floor(Math.random() * images.length)];
+            reasonImage.src = randomImg;
+            reasonImageContainer.classList.add('active');
+            // Random rotation cho polaroid
+            reasonImageContainer.querySelector('.polaroid').style.setProperty('--rotation', (Math.random() * 10 - 5) + 'deg');
+        } else {
+            reasonImageContainer.classList.remove('active');
+        }
+        
+        // Xóa timer cũ nếu có
+        clearTimeout(autoCloseTimer);
+
         setTimeout(() => {
             modal.classList.add('active');
+            
+            // Tự động đóng sau 7 giây (tăng thêm thời gian để xem ảnh)
+            autoCloseTimer = setTimeout(() => {
+                closeModal();
+            }, 7000);
         }, 300);
     }
 
@@ -173,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function closeModal() {
         modal.classList.remove('active');
+        clearTimeout(autoCloseTimer);
     }
 
     closeBtn.addEventListener('click', closeModal);

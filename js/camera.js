@@ -154,7 +154,7 @@ function capturePhoto() {
     ctx.restore();
 
     // 2. Draw Partner Image if loaded
-    if (partnerImageLoaded && partnerImg.complete && partnerImg.naturalWidth !== 0) {
+    if (partnerImageLoaded && partnerImg.src) {
         const pWidth = canvas.width * 0.35; 
         const pHeight = pWidth * 1.33;
         const pX = canvas.width - pWidth - 30;
@@ -168,9 +168,12 @@ function capturePhoto() {
         ctx.fillRect(pX - 5, pY - 5, pWidth + 10, pHeight + 10);
         ctx.restore();
 
-        drawImageCover(ctx, partnerImg, pX, pY, pWidth, pHeight);
+        try {
+            drawImageCover(ctx, partnerImg, pX, pY, pWidth, pHeight);
+        } catch (e) {
+            console.error("Lỗi vẽ ảnh người ấy:", e);
+        }
     }
-
     // 3. Draw Beautiful Frame/Border
     const borderSize = 40;
     ctx.lineWidth = borderSize;
